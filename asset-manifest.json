@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/e-peedika-client/static/css/main.3ae92432.css",
+    "main.js": "/e-peedika-client/static/js/main.8dcfab9b.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/e-peedika-client/static/js/787.c4e7f8f9.chunk.js",
+    "index.html": "/e-peedika-client/index.html",
+    "main.3ae92432.css.map": "/e-peedika-client/static/css/main.3ae92432.css.map",
+    "main.8dcfab9b.js.map": "/e-peedika-client/static/js/main.8dcfab9b.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/e-peedika-client/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3ae92432.css",
+    "static/js/main.8dcfab9b.js"
+  ]
+}
