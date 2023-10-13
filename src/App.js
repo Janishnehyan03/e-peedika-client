@@ -1,42 +1,41 @@
-import "./App.css";
 import React, { useContext, useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
-import Shop from "./pages/Shop";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import ProductView from "./pages/Product-view";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Checkout from "./pages/Checkout";
-import AddProduct from "./pages/Admin/AddProduct";
-import AllProducts from "./pages/Admin/All-Products";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import "./App.css";
+import CreateAddress from "./CreateAddress";
 import ProtectedRoute from "./Protected";
-import EditProduct from "./pages/Admin/EditProduct";
-import { ProductProvider } from "./context/ProductContext";
+import Categories from "./components/Categories";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 import { CartProvider } from "./context/CartCount";
 import { CartDetailsProvider } from "./context/CartDetails";
-import { UserAuthContext, UserAuthProvider } from "./context/UserAuth";
-import PlaceOrder from "./pages/Place-Order";
-import Orders from "./pages/Orders";
-import OrderSuccess from "./pages/OrderSuccess";
-import Profile from "./pages/Profile";
-import RatingComponent from "./pages/Rating";
-import Dashboard from "./pages/Admin/Dashboard";
+import { ProductProvider } from "./context/ProductContext";
+import { SearchProvider } from "./context/Search";
+import { UserAuthContext } from "./context/UserAuth";
+import AddressPage from "./pages/AddressPage";
+import AddCategory from "./pages/Admin/AddCategory";
+import AddProduct from "./pages/Admin/AddProduct";
+import AdminProtected from "./pages/Admin/AdminProtected";
+import AllProducts from "./pages/Admin/All-Products";
+import AllCategories from "./pages/Admin/AllCategories";
 import All_orders from "./pages/Admin/All_orders";
 import All_users from "./pages/Admin/All_users";
-import View_user from "./pages/Admin/View_user";
-import Search_data from "./pages/Search_data";
-import { SearchProvider } from "./context/Search";
-import Verify from "./pages/Verify";
-import CreateAddress from "./CreateAddress";
-import CartModel from "./pages/CartModel";
-import AddCategory from "./pages/Admin/AddCategory";
-import AllCategories from "./pages/Admin/AllCategories";
+import Dashboard from "./pages/Admin/Dashboard";
 import EditCategory from "./pages/Admin/EditCategory";
-import AdminProtected from "./pages/Admin/AdminProtected";
-import AddressPage from "./pages/AddressPage";
-import Categories from "./components/Categories";
+import EditProduct from "./pages/Admin/EditProduct";
+import View_user from "./pages/Admin/View_user";
+import Checkout from "./pages/Checkout";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import OrderSuccess from "./pages/OrderSuccess";
+import Orders from "./pages/Orders";
+import PlaceOrder from "./pages/Place-Order";
+import ProductView from "./pages/Product-view";
+import Profile from "./pages/Profile";
+import RatingComponent from "./pages/Rating";
+import Search_data from "./pages/Search_data";
+import Shop from "./pages/Shop";
+import Signup from "./pages/Signup";
+import Verify from "./pages/Verify";
 
 function App() {
   const [cartOpen, setCartOpen] = useState(false);
@@ -52,7 +51,6 @@ function App() {
         <CartDetailsProvider>
           <CartProvider>
             <Navbar />
-            <CartModel open={cartOpen} setOpen={setCartOpen} />
             <Switch>
               <ProductProvider>
                 <Route exact path="/">
