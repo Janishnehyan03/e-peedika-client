@@ -8,7 +8,9 @@ const Axios = axios.create({
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "*",
     "Access-Control-Allow-Methods": "*",
+    authorization: localStorage.getItem("token"),
   },
+
   withCredentials: true,
 });
 

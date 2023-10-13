@@ -97,15 +97,41 @@ function Index({ cartOpen, setCartOpen }) {
                           </div>
 
                           <p className="my-3  text-gray-600">
-                            {item.description.slice(0,200)}
+                            {item.description.slice(0, 200)}
                           </p>
 
-                          <p className="my-3 text-2xl font-bold leading-3 text-gray-900">
-                            ₹ {item.price}
-                          </p>
-                          <button className="bg-blue-900 m-3 text-white py-1 px-2">
-                            Buy Now
-                          </button>
+                          <div className="text-xl text-red-500 font-semibold">
+                            {item.discount ? (
+                              <>
+                                <div className="flex justify-between">
+                                  <span
+                                    style={{
+                                      textDecoration: "line-through",
+                                      fontSize: 14,
+                                    }}
+                                  >
+                                    ₹{Math.floor(item.price)}
+                                  </span>{" "}
+                                  <p className="text-green-600">
+                                    ₹
+                                    {Math.floor(item.price) -
+                                      Math.floor(item.price) *
+                                        (item.discount / 100)}
+                                  </p>
+                                </div>
+                              </>
+                            ) : (
+                              <p className="text-green-600">
+                                {" "}
+                                ₹{Math.floor(item.price)}
+                              </p>
+                            )}
+                          </div>
+                          {item?.discount > 0 && (
+                            <button className="bg-blue-900 m-3 text-white py-1 px-2">
+                              {item.discount}% off
+                            </button>
+                          )}
                         </div>
                       </Link>
                     ))}

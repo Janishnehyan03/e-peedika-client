@@ -132,8 +132,9 @@ function Dashboard() {
           {products.length > 0 ? (
             <div className="grid grid-cols-4">
               {products.map((item, productIndex) => (
-                <div
+                <a
                   key={productIndex}
+                  href={`/product/${item._id}`}
                   class="product-card bg-white w-80 relative shadow-md mx-auto mt-10 p-4"
                 >
                   <div class="product-tumb h-64  flex items-center justify-center float-left">
@@ -144,9 +145,11 @@ function Dashboard() {
                     />
                   </div>
                   <div class="product-details p-4 float-left">
-                    <div class="absolute left-0 top-4 uppercase text-xs font-semibold bg-red-600 text-white px-4 py-1">
-                      3% off
-                    </div>
+                    {item?.discount > 0 && (
+                      <div class="absolute left-0 top-4 uppercase text-xs font-semibold bg-red-600 text-white px-4 py-1">
+                        {item.discount}% off
+                      </div>
+                    )}
                     <span class="product-catagory block text-xs font-semibold text-gray-600 uppercase mb-2">
                       {item?.category?.name}
                     </span>
@@ -154,36 +157,41 @@ function Dashboard() {
                       <a href="">{item.title}</a>
                     </h4>
                     <p class="text-sm capitalize text-gray-600 leading-6 mt-2">
-                      {item.description}
+                      {item.description.slice(0, 200)}
                     </p>
                     <div class="product-bottom-details overflow-hidden border-t border-gray-300 pt-4">
-                      <div class="w-1/2 float-left">
-                        <div class="text-xl text-yellow-500 font-semibold">
-                          ₹{item.price}
-                        </div>
-                      </div>
                       <div class="w-1/2 float-left text-right">
-                        <div class="text-sm text-gray-700 line-through inline-block mr-2">
-                          $96.00
-                        </div>
-                        <div class="product-links inline-block">
-                          <a
-                            href=""
-                            class="text-gray-400 hover-text-yellow-500"
-                          >
-                            <i class="fas fa-heart"></i>
-                          </a>
-                          <a
-                            href=""
-                            class="text-gray-400 hover-text-yellow-500"
-                          >
-                            <i class="fas fa-shopping-cart"></i>
-                          </a>
+                        <div className="text-xl text-red-500 font-semibold">
+                          {item.discount ? (
+                            <>
+                              <div className="flex justify-between">
+                                <span
+                                  style={{
+                                    textDecoration: "line-through",
+                                    fontSize: 14,
+                                  }}
+                                >
+                                  ₹{Math.floor(item.price)}
+                                </span>{" "}
+                                <p className="text-green-600">
+                                  ₹
+                                  {Math.floor(item.price) -
+                                    Math.floor(item.price) *
+                                      (item.discount / 100)}
+                                </p>
+                              </div>
+                            </>
+                          ) : (
+                            <p className="text-green-600">
+                              {" "}
+                              ₹{Math.floor(item.price)}
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           ) : (

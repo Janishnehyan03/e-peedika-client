@@ -28,7 +28,6 @@ export default function EditProduct() {
     });
   };
 
-
   const getProduct = async () => {
     let { data } = await Axios.get(`/products/${paramsId}`);
     setProduct(data.product);
@@ -91,21 +90,29 @@ export default function EditProduct() {
           setCategories([]);
           setStock("");
           setLoading(false);
-          window.location.href="/"
+          window.location.href = "/";
         }
       } else {
         // If no image is selected, proceed with the PATCH request without updating the image
-        let res = await Axios.patch(`/products/${paramsId}`, {
-          title,
-          price,
-          img,
-          description,
-          categories,
-          stock,
-          size,
-          discount,
-          colors,
-        });
+        let res = await Axios.patch(
+          `/products/${paramsId}`,
+          {
+            title,
+            price,
+            img,
+            description,
+            categories,
+            stock,
+            size,
+            discount,
+            colors,
+          },
+          {
+            headers: {
+              authorization: localStorage.getItem("token"),
+            },
+          }
+        );
 
         if (res.status === 200) {
           toast.success("Product updated Successfully", {

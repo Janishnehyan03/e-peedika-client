@@ -16,8 +16,6 @@ export const UserAuthProvider = (props) => {
           },
         }
       );
-      // console.log(res);
-      console.log(res.data);
       if (res.data.success) {
         setAuthData(res.data.user);
       }

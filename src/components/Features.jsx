@@ -63,7 +63,7 @@ function Features() {
                   {selectedCategory === item && (
                     <p className="text-gray-600 font-thin text-sm mt-2">
                       {/* Add your category description here */}
-                      {item.description}
+                      {item?.description}
                     </p>
                   )}
                 </div>
@@ -73,7 +73,7 @@ function Features() {
                 onClick={() => setSelectedCategory("show-all")}
                 style={{ cursor: "pointer" }}
               >
-                <Link to={'/categories'}>Show All</Link>
+                <Link to={"/categories"}>Show All</Link>
               </div>
             </>
           ) : (
@@ -90,7 +90,7 @@ function Features() {
                 <Link
                   to={`/product/${products[0]?._id}`}
                   key={products[0]?._id}
-                  className="relative mx-1 cursor-pointer  overflow-hidden group"
+                  className="relative mx-1 cursor-pointer w-1/3  overflow-hidden group"
                 >
                   <img
                     src={products[0]?.img}
@@ -103,19 +103,21 @@ function Features() {
                         {products[0]?.title}
                       </h1>
                       <p className="text-gray-200 text-[12px] font-sans uppercase">
-                        {products[0]?.description.slice(0,200)}
+                        {products[0]?.description.slice(0, 200)}
                       </p>
                       <p className="text-xl font-bold my-4">
                         ₹{products[0]?.price}
                       </p>
-                      <button className="border-white rounded-full border-2 w-1/2  text-white py-1 px-2">
-                        Buy Now
-                      </button>
+                      {products[0].discount > 0 && (
+                        <button className="border-white rounded-full border-2 w-1/2  text-white py-1 px-2">
+                          {products[0].discount}% Off
+                        </button>
+                      )}
                     </div>
                   </div>
                 </Link>
 
-                <div className="">
+                <div className="w-3/4">
                   {products.slice(1).map((product) => (
                     <Link
                       to={`/product/${product?._id}`}
@@ -131,13 +133,41 @@ function Features() {
                         <h1 className="text-xl text-blue-900 font-roboto font-medium transition">
                           {product?.title}
                         </h1>
-                        <p className="uppercase">{product?.description.slice(0,100)}</p>
-                        <p className="text-xl font-bold my-2">
-                          ₹{product?.price}
+                        <p className="uppercase">
+                          {product?.description.slice(0, 100)}
                         </p>
-                        <button className="bg-blue-900 text-white py-1 px-2">
-                          Buy Now
-                        </button>
+                        <div className="text-xl text-red-500 font-semibold">
+                          {product?.discount ? (
+                            <>
+                              <div className="flex justify-between">
+                                <span
+                                  style={{
+                                    textDecoration: "line-through",
+                                    fontSize: 14,
+                                  }}
+                                >
+                                  ₹{Math.floor(product?.price)}
+                                </span>{" "}
+                                <p className="text-green-600">
+                                  ₹
+                                  {Math.floor(product?.price) -
+                                    Math.floor(product?.price) *
+                                      (product?.discount / 100)}
+                                </p>
+                              </div>
+                            </>
+                          ) : (
+                            <p className="text-green-600">
+                              {" "}
+                              ₹{Math.floor(product?.price)}
+                            </p>
+                          )}
+                        </div>
+                        {product?.discount > 0 && (
+                          <button className="bg-blue-900 text-white py-1 px-2">
+                            {product.discount}% off
+                          </button>
+                        )}
                       </div>
                     </Link>
                   ))}
