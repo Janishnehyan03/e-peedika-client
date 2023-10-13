@@ -23,7 +23,7 @@ function Login() {
         email,
         password,
       });
-
+      localStorage.setItem("token", res.data.token);
       if (res.data.success) {
         setLoading(false);
         toast.success(res.data.message, {
@@ -73,9 +73,7 @@ function Login() {
           </div>
 
           {loading ? (
-            <button
-              className="bg-blue-900 text-white w-full py-2 rounded hover:bg-blue-800 transition"
-            >
+            <button className="bg-blue-900 text-white w-full py-2 rounded hover:bg-blue-800 transition">
               Processing...
             </button>
           ) : (

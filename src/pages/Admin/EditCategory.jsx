@@ -54,7 +54,7 @@ function EditCategory() {
             position: "top-center",
             autoClose: 2000,
           });
-          window.location.href = "/";
+          window.location.href = "/dashboard";
         }
       } catch (error) {
         console.log(error);

@@ -7,7 +7,15 @@ export const UserAuthProvider = (props) => {
   const [authData, setAuthData] = useState(null);
   const getAuthData = async () => {
     try {
-      let res = await Axios.post("/auth/check-loggedIn/");
+      let res = await Axios.post(
+        "/auth/check-loggedIn/",
+        {},
+        {
+          headers: {
+            authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       // console.log(res);
       console.log(res.data);
       if (res.data.success) {
