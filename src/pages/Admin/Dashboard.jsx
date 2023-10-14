@@ -11,7 +11,15 @@ function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortingOption, setSortingOption] = useState("Default");
   const [categories, setCategories] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredProducts = products.filter((product) =>
+    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   const getCategories = async () => {
     try {
       let { data } = await Axios.get("/categories");
@@ -52,8 +60,8 @@ function Dashboard() {
   }, [selectedCategory, sortingOption]);
   return (
     <div className="mb-[3rem] ">
-      <h1 className="text-6xl text-center border border-blue-900 text-blue-900 font-medium  py-3 rounded-full uppercase mb-6">
-        Dashboard
+      <h1 className="text-4xl border-b-2 text-center font-bold text-orange-600 mb-[5rem]  py-3 rounded-full uppercase ">
+       Welcome to Admin Dashboard
       </h1>
       <div className="bg-white p-4 rounded-lg">
         <div className="flex justify-between items-center">
@@ -62,7 +70,7 @@ function Dashboard() {
           </h1>
           <Link
             to={`/add-category`}
-            className="bg-blue-900 px-4 rounded-full py-2 text-white uppercase font-bold"
+            className="border-blue-900 border px-4 rounded-full py-2 text-blue-900 hover:bg-blue-900 hover:text-white transition uppercase font-bold"
           >
             <FontAwesomeIcon icon={faPen} /> create new category
           </Link>
@@ -70,22 +78,23 @@ function Dashboard() {
 
         <Categories />
       </div>
-      <div className="bg-gray-100 p-4 rounded-lg mt-4">
-        <div className="flex justify-between items-center mb-3">
+      <div className="p-4 rounded-lg mt-4">
           <h1 className="text-center mt-4  font-bold text-2xl uppercase text-black px-5 py-2 rounded max-w-sm mx-auto">
             products
           </h1>
+        <div className="flex justify-between items-center mb-3">
           <Link
             to={`/add-product`}
-            className="text-center mt-4 bg-blue-900 font-bold text-2xl uppercase text-white px-5 py-2 rounded max-w-sm mx-auto"
+            className="text-center mt-4 border border-blue-900 font-bold text-2xl uppercase text-blue-900 hover:bg-blue-900 hover:text-white transition px-5 py-2 rounded-full max-w-sm mx-auto"
           >
             + Add New Product
           </Link>
         </div>
-        <div className="flex items-center rounded-full px-3 w-64">
+        <div className="flex items-center rounded-full px-3">
           <input
             type="text"
             placeholder="Search"
+            onChange={handleSearch}
             className="py-2 px-4 w-full rounded-full outline-none text-gray-700"
           />
           <div className="p-3 rounded-r-full">
@@ -131,7 +140,7 @@ function Dashboard() {
         <div>
           {products.length > 0 ? (
             <div className="grid grid-cols-4">
-              {products.map((item, productIndex) => (
+              {filteredProducts.map((item, productIndex) => (
                 <a
                   key={productIndex}
                   href={`/product/${item._id}`}

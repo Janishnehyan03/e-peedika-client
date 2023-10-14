@@ -1,51 +1,52 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Axios from "../Axios";
-import { useEffect } from "react";
 import LoadingSpinner from "./LoadingSpinner";
 
 function Categories({ limit }) {
   const [categories, setCategories] = useState([]);
   const getAllCategories = async () => {
-    let { data } = await Axios.get(`/categories?limit=${limit}`);
-    setCategories(data.categories);
+    try {
+      const { data } = await Axios.get(`/categories?limit=${limit}`);
+      setCategories(data.categories);
+    } catch (error) {
+      console.error("Error fetching categories: ", error);
+    }
   };
   useEffect(() => {
     getAllCategories();
   }, []);
+
   return (
-    <>
-      {/* category text*/}
-      <div className="container py-16">
-        {categories.length > 0 ? (
-          <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-3">
-            {/* item */}
-            {categories.map((item) => (
-              <Link to={`/category/${item._id}`}>
-                <div
-                  key={item._id}
-                  className="relative rounded-full overflow-hidden group border border-blue-200 p-1"
-                >
-                  <div className="h-20 w-20">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="object-cover rounded-full w-full h-full"
-                    />
-                  </div>
-                  <div className="absolute inset-0 flex items-center justify-center text-xl text-blue-900 font-roboto font-medium group-hover:bg-blue-900 group-hover:text-white transition">
-                    {item.name}
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <LoadingSpinner />
-        )}
-      </div>
-    </>
+    <div className="flex justify-center items-center py-4">
+      {categories.length > 0 ? (
+        <div className="grid grid-cols-8 space-x-4">
+          {categories.map((item) => (
+            <Link to={`/category/${item._id}`} key={item._id}>
+              <div className="flex flex-col items-center mx-2 group">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="object-cover w-28 h-28 rounded-full "
+                />
+                <p className="text-center mt-2 group-hover:text-orange-500 font-semibold">{item.name}</p>
+              </div>
+            </Link>
+          ))}
+          <Link to="/categories">
+            <div className="flex flex-col items-center mx-2">
+              <div className="w-24 h-24 rounded-full group transition hover:bg-gray-600 bg-gray-200 flex items-center justify-center">
+                <p className="text-gray-700 text-center font-bold group-hover:text-white">
+                  View All
+                </p>
+              </div>
+            </div>
+          </Link>
+        </div>
+      ) : (
+        <LoadingSpinner />
+      )}
+    </div>
   );
 }
 

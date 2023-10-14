@@ -11,12 +11,18 @@ function Home({ cartOpen, setCartOpen }) {
       {/* <Banner /> */}
       <Features />
       <div className="flex mt-3 justify-between items-center">
-        <h2 className="text-3xl mt-5 font-medium text-gray-800 uppercase">
-          Shop by category
-        </h2>
-        <Link to={'/categories'} className="bg-blue-900 px-3 py-1 text-white rounded-3xl">view all</Link>
+        <div className="flex flex-col items-center mx-auto my-8">
+          <h2 className="text-3xl mt-5 text-center font-medium text-gray-800 uppercase">
+            explore the categories
+          </h2>
+        </div>
       </div>
-      <Categories limit={9} />
+      <Categories limit={7} />
+      <div className="flex flex-col items-center mx-auto my-8">
+        <h2 className="text-3xl mt-5 text-center font-medium text-gray-800 uppercase">
+          our latest products
+        </h2>
+      </div>
       <Products cartOpen={cartOpen} setCartOpen={setCartOpen} />
     </>
   );

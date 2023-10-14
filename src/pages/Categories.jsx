@@ -1,7 +1,8 @@
 import React from "react";
+import Categories from '../components/Categories'
 
-function Categories() {
+function CategoriesPage() {
   return <Categories />;
 }
 
-export default Categories;
+export default CategoriesPage;

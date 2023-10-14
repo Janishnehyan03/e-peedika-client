@@ -4,16 +4,21 @@ import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Axios from "../Axios";
-import { CartDetailsContext } from "../context/CartDetails";
 import { ProductContext } from "../context/ProductContext";
-import { UserAuthContext } from "../context/UserAuth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-function Products({ cartOpen, setCartOpen }) {
+function Products() {
   const [products, setProducts] = useContext(ProductContext);
-  const [loading, setLoading] = useState(false);
-  const { cartDetails, getCart, addToCart } = useContext(CartDetailsContext);
-  const { authData } = useContext(UserAuthContext);
-  const user = authData;
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredProducts = products.filter((product) =>
+    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortingOption, setSortingOption] = useState("Default");
   const [categories, setCategories] = useState([]);
@@ -61,12 +66,21 @@ function Products({ cartOpen, setCartOpen }) {
     <>
       <ToastContainer />
       <div className="container pb-16">
-        <h2 className="text-2xl font-medium text-gray-800 uppercase mb-6">
-          Top New Arrival
-        </h2>
+      
         <h2 className="text-xl font-medium text-orange-800  mb-6">
-          ({products.length}) results
+          ({filteredProducts.length}) results
         </h2>
+        <div className="flex items-center rounded-full px-3">
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={handleSearch}
+            className="py-2 px-4 w-full rounded-full outline-none text-gray-700"
+          />
+          <div className="p-3 rounded-r-full">
+            <FontAwesomeIcon icon={faSearch} className="text-gray-600" />
+          </div>
+        </div>
         <div className="mt-4">
           <div className="flex items-center justify-between">
             <div className="w-1/2">
@@ -114,7 +128,7 @@ function Products({ cartOpen, setCartOpen }) {
           <>
             <div className="grid space-x-2 md:grid-cols-4">
               {/* item */}
-              {products.map((item, key) => (
+              {filteredProducts.map((item, key) => (
                 <Link
                   to={`/product/${item._id}`}
                   class="hover:bg-gray-100 mx-2 bg-white w-80 relative shadow-md mt-10 p-4"

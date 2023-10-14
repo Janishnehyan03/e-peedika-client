@@ -51,69 +51,77 @@ function App() {
         <CartDetailsProvider>
           <CartProvider>
             <Navbar />
-            <Switch>
-              <ProductProvider>
-                <Route exact path="/">
-                  <Home cartOpen={cartOpen} setCartOpen={setCartOpen} />
-                </Route>
+            <main>
+              <Switch>
+                <ProductProvider>
+                  <Route exact path="/">
+                    <Home cartOpen={cartOpen} setCartOpen={setCartOpen} />
+                  </Route>
 
-                <Route path="/search" component={Search_data} />
-                <Route path="/category/:id">
-                  <Shop cartOpen={cartOpen} setCartOpen={setCartOpen} />
-                </Route>
-                <Route path="/product/:id">
-                  <ProductView cartOpen={cartOpen} setCartOpen={setCartOpen} />
-                </Route>
-                <Route path="/categories" component={Categories} />
-                <Route path="/login" component={Login} />
-                <Route path="/signup" component={Signup} />
-                <Route path="/verify-msg" component={Verify} />
-                {/* if url is not available load an error page with current url */}
-                <AdminProtected
-                  path={"/admin/edit-product/:id"}
-                  component={EditProduct}
-                />
-                <AdminProtected
-                  path={"/admin/edit-category/:id"}
-                  component={EditCategory}
-                />
-                <AdminProtected
-                  path={"/add-category"}
-                  component={AddCategory}
-                />
-                <ProtectedRoute
-                  path={"/add-address"}
-                  component={CreateAddress}
-                />
-                <ProtectedRoute path={"/address"} component={AddressPage} />
-                <AdminProtected
-                  path={"/admin-categories"}
-                  component={AllCategories}
-                />
+                  <Route path="/search" component={Search_data} />
+                  <Route path="/category/:id">
+                    <Shop cartOpen={cartOpen} setCartOpen={setCartOpen} />
+                  </Route>
+                  <Route path="/product/:id">
+                    <ProductView
+                      cartOpen={cartOpen}
+                      setCartOpen={setCartOpen}
+                    />
+                  </Route>
+                  <Route path="/categories" component={Categories} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/signup" component={Signup} />
+                  <Route path="/verify-msg" component={Verify} />
+                  {/* if url is not available load an error page with current url */}
+                  <AdminProtected
+                    path={"/admin/edit-product/:id"}
+                    component={EditProduct}
+                  />
+                  <AdminProtected
+                    path={"/admin/edit-category/:id"}
+                    component={EditCategory}
+                  />
+                  <AdminProtected
+                    path={"/add-category"}
+                    component={AddCategory}
+                  />
+                  <ProtectedRoute
+                    path={"/add-address"}
+                    component={CreateAddress}
+                  />
+                  <ProtectedRoute path={"/address"} component={AddressPage} />
+                  <AdminProtected
+                    path={"/admin-categories"}
+                    component={AllCategories}
+                  />
 
-                <ProtectedRoute path={"/profile"} component={Profile} />
-                <ProtectedRoute path={"/checkout"} component={Checkout} />
-                <AdminProtected path={"/add-product"} component={AddProduct} />
-                <AdminProtected
-                  path="/admin-products"
-                  component={AllProducts}
-                />
-                <ProtectedRoute path="/place-order" component={PlaceOrder} />
-                <ProtectedRoute path="/orders" component={Orders} />
-                <ProtectedRoute
-                  path="/success-order"
-                  component={OrderSuccess}
-                />
-                <ProtectedRoute
-                  path="/rating/:id"
-                  component={RatingComponent}
-                />
-                <AdminProtected path="/admin-orders" component={All_orders} />
-                <AdminProtected path="/admin-users" component={All_users} />
-                <AdminProtected path="/view-user/:id" component={View_user} />
-                <AdminProtected path="/dashboard" component={Dashboard} />
-              </ProductProvider>
-            </Switch>
+                  <ProtectedRoute path={"/profile"} component={Profile} />
+                  <ProtectedRoute path={"/checkout"} component={Checkout} />
+                  <AdminProtected
+                    path={"/add-product"}
+                    component={AddProduct}
+                  />
+                  <AdminProtected
+                    path="/admin-products"
+                    component={AllProducts}
+                  />
+                  <ProtectedRoute path="/place-order" component={PlaceOrder} />
+                  <ProtectedRoute path="/orders" component={Orders} />
+                  <ProtectedRoute
+                    path="/success-order"
+                    component={OrderSuccess}
+                  />
+                  <ProtectedRoute
+                    path="/rating/:id"
+                    component={RatingComponent}
+                  />
+                  <AdminProtected path="/admin-orders" component={All_orders} />
+                  <AdminProtected path="/admin-users" component={All_users} />
+                  <AdminProtected path="/view-user/:id" component={View_user} />
+                  <AdminProtected path="/dashboard" component={Dashboard} />
+                </ProductProvider>
+              </Switch>
+            </main>
           </CartProvider>
         </CartDetailsProvider>
       </SearchProvider>

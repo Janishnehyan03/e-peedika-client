@@ -54,9 +54,16 @@ function Index({ cartOpen, setCartOpen }) {
                   {"<"}
                   <p className="text-sm  leading-none">Back</p>
                 </Link>
-                <p className="text-5xl font-black mb-2 leading-10 text-gray-800 pt-3">
-                  {category?.name}
-                </p>
+                <div className="flex items-center space-x-2">
+                  <img
+                    src={category.image}
+                    className="h-28 w-28 rounded-full"
+                    alt=""
+                  />
+                  <p className="text-5xl font-black mb-2 leading-10 text-gray-800 pt-3">
+                    {category?.name}
+                  </p>
+                </div>
                 <p className=" font-medium mb-2  text-gray-800 pt-3">
                   {category?.description}
                 </p>

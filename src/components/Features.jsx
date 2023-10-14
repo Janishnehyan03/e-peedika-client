@@ -5,6 +5,7 @@ import { useState } from "react";
 import Axios from "../Axios";
 import LoadingSpinner from "./LoadingSpinner";
 import { Link } from "react-router-dom";
+import Carousel from "./Carousel";
 
 function Features() {
   const [products, setProducts] = useState([]);
@@ -24,7 +25,7 @@ function Features() {
   };
   const getProducts = async () => {
     try {
-      let { data } = await Axios.get("/products?popular=true&limit=3");
+      let { data } = await Axios.get("/products?popular=true&limit=5");
       setProducts(data.products);
     } catch (error) {
       console.log(error.response);
@@ -37,7 +38,7 @@ function Features() {
   return (
     <div>
       <div className="flex ">
-        <div className="w-1/4">
+        {/* <div className="w-1/4">
           <div className="bg-orange-600 text-white p-2">
             <p>
               <FontAwesomeIcon icon={faList} className="mr-3" />
@@ -62,7 +63,6 @@ function Features() {
                   </Link>
                   {selectedCategory === item && (
                     <p className="text-gray-600 font-thin text-sm mt-2">
-                      {/* Add your category description here */}
                       {item?.description}
                     </p>
                   )}
@@ -79,99 +79,15 @@ function Features() {
           ) : (
             <LoadingSpinner />
           )}
-        </div>
-        <div className="w-3/4">
+        </div> */}
+        <div className="w-full">
           <div className="p-4">
             <h2 className="text-2xl font-semibold mb-4 text-center">
               Popular Products
             </h2>
             {products.length > 0 ? (
               <div className="flex">
-                <Link
-                  to={`/product/${products[0]?._id}`}
-                  key={products[0]?._id}
-                  className="relative mx-1 cursor-pointer w-1/3  overflow-hidden group"
-                >
-                  <img
-                    src={products[0]?.img}
-                    className="object-cover  w-full h-full" // Add this class
-                    alt=""
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center  text-white font-roboto font-medium group-hover:bg-opacity-60 transition">
-                    <div className="flex mx-4 flex-col text-center items-center">
-                      <h1 className="text-xl font-bold bg-blue-900 mb-4 text-white py-1 px-2">
-                        {products[0]?.title}
-                      </h1>
-                      <p className="text-gray-200 text-[12px] font-sans uppercase">
-                        {products[0]?.description.slice(0, 200)}
-                      </p>
-                      <p className="text-xl font-bold my-4">
-                        ₹{products[0]?.price}
-                      </p>
-                      {products[0].discount > 0 && (
-                        <button className="border-white rounded-full border-2 w-1/2  text-white py-1 px-2">
-                          {products[0].discount}% Off
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-
-                <div className="w-3/4">
-                  {products.slice(1).map((product) => (
-                    <Link
-                      to={`/product/${product?._id}`}
-                      key={product?._id}
-                      className="relative hover:bg-gray-200 transition mx-1 cursor-pointer bg-gray-100 mb-1 rounded-sm overflow-hidden group flex"
-                    >
-                      <img
-                        src={product?.img}
-                        className="object-cover w-1/2 h-full"
-                        alt=""
-                      />
-                      <div className="w-1/2 m-3 relative ">
-                        <h1 className="text-xl text-blue-900 font-roboto font-medium transition">
-                          {product?.title}
-                        </h1>
-                        <p className="uppercase">
-                          {product?.description.slice(0, 100)}
-                        </p>
-                        <div className="text-xl text-red-500 font-semibold">
-                          {product?.discount ? (
-                            <>
-                              <div className="flex justify-between">
-                                <span
-                                  style={{
-                                    textDecoration: "line-through",
-                                    fontSize: 14,
-                                  }}
-                                >
-                                  ₹{Math.floor(product?.price)}
-                                </span>{" "}
-                                <p className="text-green-600">
-                                  ₹
-                                  {Math.floor(product?.price) -
-                                    Math.floor(product?.price) *
-                                      (product?.discount / 100)}
-                                </p>
-                              </div>
-                            </>
-                          ) : (
-                            <p className="text-green-600">
-                              {" "}
-                              ₹{Math.floor(product?.price)}
-                            </p>
-                          )}
-                        </div>
-                        {product?.discount > 0 && (
-                          <button className="bg-blue-900 text-white py-1 px-2">
-                            {product.discount}% off
-                          </button>
-                        )}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
+                <Carousel products={products} />
               </div>
             ) : (
               <LoadingSpinner />
