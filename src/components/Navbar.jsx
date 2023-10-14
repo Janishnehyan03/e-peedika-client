@@ -17,27 +17,43 @@ const Navbar = () => {
     }
   };
   return (
-    <nav className="p-[3rem] flex items-center justify-between">
+    <nav className="p-6 flex items-center justify-between bg-gray-800 text-white">
       <div className="flex items-center">
-        <a href="/" className="text-4xl font-bold group hover:text-[#d54646] transition text-[#172841]">
-          <span className="text-[#d54646] group-hover:text-[#172841]">e.</span>
+        <a href="/" className="text-4xl font-bold group hover:text-red-500 transition">
+          <span className="text-red-500 group-hover:text-white">e.</span>
           Peedika
         </a>
+      </div>
+
+      <div className="flex items-center justify-center">
+        <ul className="flex space-x-6">
+       
+          <li>
+            <Link to="/about" className="hover:text-red-500 transition uppercase">
+              About Us
+            </Link>
+          </li>
+          <li>
+            <Link to="/contact" className="hover:text-red-500 transition uppercase">
+              Contact Us
+            </Link>
+          </li>
+        </ul>
       </div>
 
       {authData ? (
         <div className="flex justify-around items-center">
           <Link
             to={"/dashboard"}
-            className="ml-4 px-2 py-2 hover:text-red-500  transition cursor-pointer  uppercase text-blue-900"
+            className="ml-4 px-2 py-2 hover:text-red-500 transition cursor-pointer uppercase"
           >
             <span className="font-bold">Dashboard</span>
           </Link>
           <button
             onClick={logout}
-            className="text-red-500  hover:text-blue-900 transition font-bold uppercase ml-2"
+            className="text-red-500 hover:text-white transition font-bold uppercase ml-2"
           >
-            logout
+            Logout
           </button>
         </div>
       ) : (
@@ -46,7 +62,7 @@ const Navbar = () => {
             to={"/login"}
             className="ml-4 bg-blue-900 px-2 py-2 rounded-lg hover:text-blue-900 hover:bg-transparent transition cursor-pointer border border-blue-900 text-white"
           >
-            <FontAwesomeIcon icon={faUser} className="text-2xl" />{" "}
+            <FontAwesomeIcon icon={faUser} className="text-xl" />{" "}
             <span className="font-bold">Login</span>
           </Link>
         </div>

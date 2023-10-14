@@ -51,12 +51,13 @@ function ProductView() {
           <div className="lg:w-4/5 mx-auto flex flex-wrap">
             <img
               alt="ecommerce"
-              className="lg:w-1/2 w-full object-cover object-center rounded-lg border border-gray-200"
+              className="lg:w-1/2 w-full hover:scale-105 hover:rotate-1 transition cursor-pointer object-cover object-center rounded-lg border border-gray-200"
               src={product.img}
+              style={{ transition: "transform .2s" }}
             />
 
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              {product.discount>0 && (
+              {product.discount > 0 && (
                 <span className="text-sm mb-3 title-font bg-red-700 p-1 rounded-lg text-white  tracking-widest">
                   {product?.discount}% off
                 </span>

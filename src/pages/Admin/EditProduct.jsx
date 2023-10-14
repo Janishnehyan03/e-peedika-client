@@ -142,13 +142,12 @@ export default function EditProduct() {
       </div>
 
       <div className="mt-10 sm:mt-0">
+      <h3 className="text-3xl uppercase text-center  font-bold leading-6 text-gray-900">
+        Edit Product
+      </h3>
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
-            <div className="px-4 sm:px-0">
-              <h3 className="text-lg font-medium text-center leading-6 text-gray-900">
-                Edit Product
-              </h3>
-            </div>
+            <div className="px-4  sm:px-0"></div>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
             <form action="#" method="POST">
@@ -298,10 +297,10 @@ export default function EditProduct() {
                           <img
                             src={URL.createObjectURL(img)}
                             alt="Preview"
-                            className="h-20 mt-2"
+                            className="h-62 mt-2"
                           />
                         ) : (
-                          <img src={img} alt="Preview" className="h-20 mt-2" />
+                          <img src={img} alt="Preview" className="h-62 mt-2" />
                         )}
                         <div className="flex text-sm text-gray-600">
                           <label

@@ -82,7 +82,7 @@ function Features() {
         </div> */}
         <div className="w-full">
           <div className="p-4">
-            <h2 className="text-2xl font-semibold mb-4 text-center">
+            <h2 className="text-3xl uppercase font-semibold mb-4 text-center">
               Popular Products
             </h2>
             {products.length > 0 ? (

@@ -11,6 +11,7 @@ import { CartDetailsProvider } from "./context/CartDetails";
 import { ProductProvider } from "./context/ProductContext";
 import { SearchProvider } from "./context/Search";
 import { UserAuthContext } from "./context/UserAuth";
+import About from "./pages/About";
 import AddressPage from "./pages/AddressPage";
 import AddCategory from "./pages/Admin/AddCategory";
 import AddProduct from "./pages/Admin/AddProduct";
@@ -24,6 +25,7 @@ import EditCategory from "./pages/Admin/EditCategory";
 import EditProduct from "./pages/Admin/EditProduct";
 import View_user from "./pages/Admin/View_user";
 import Checkout from "./pages/Checkout";
+import Contact from "./pages/Contact";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import OrderSuccess from "./pages/OrderSuccess";
@@ -36,11 +38,10 @@ import Search_data from "./pages/Search_data";
 import Shop from "./pages/Shop";
 import Signup from "./pages/Signup";
 import Verify from "./pages/Verify";
-import Socket from "./pages/Socket";
 
 function App() {
   const [cartOpen, setCartOpen] = useState(false);
-  const { getAuthData, authData } = useContext(UserAuthContext);
+  const { getAuthData } = useContext(UserAuthContext);
 
   useEffect(() => {
     getAuthData();
@@ -59,7 +60,8 @@ function App() {
                     <Home cartOpen={cartOpen} setCartOpen={setCartOpen} />
                   </Route>
 
-                  <Route path="/socket" component={Socket} />
+                  <Route path="/about" component={About} />
+                  <Route path="/contact" component={Contact} />
                   <Route path="/search" component={Search_data} />
                   <Route path="/category/:id">
                     <Shop cartOpen={cartOpen} setCartOpen={setCartOpen} />

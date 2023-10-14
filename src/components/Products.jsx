@@ -1,3 +1,5 @@
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CircularProgress } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -5,8 +7,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Axios from "../Axios";
 import { ProductContext } from "../context/ProductContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 function Products() {
   const [products, setProducts] = useContext(ProductContext);
@@ -39,6 +39,8 @@ function Products() {
           lowtoHigh: sortingOption === "lowtoHigh" ? 1 : undefined,
           hightoLow: sortingOption === "hightoLow" ? 1 : undefined,
           discount: sortingOption === "discount" ? 1 : undefined,
+          aToz: sortingOption === "aToz" ? 1 : undefined,
+          zToa: sortingOption === "zToa" ? 1 : undefined,
         },
       });
       setProducts(data.products);
@@ -66,7 +68,6 @@ function Products() {
     <>
       <ToastContainer />
       <div className="container pb-16">
-      
         <h2 className="text-xl font-medium text-orange-800  mb-6">
           ({filteredProducts.length}) results
         </h2>
@@ -110,6 +111,7 @@ function Products() {
                 onChange={handleSortingChange}
               >
                 <option value="Default">Default Sorting</option>
+                <option value="aToz">A-Z</option>
                 <option value="lowtoHigh">Price: Low to High</option>
                 <option value="hightoLow">Price: High to Low</option>
                 <option value="discount">Offer Products</option>
@@ -145,7 +147,7 @@ function Products() {
                       class="w-full h-56"
                     />
                   </div>
-                  <div class="product-details p-4">
+                  <div class="relative p-4">
                     <span class="product-catagory block text-xs font-semibold text-gray-600 uppercase mb-2">
                       {item?.category?.name}
                     </span>
@@ -161,27 +163,28 @@ function Products() {
                           {item.discount ? (
                             <>
                               <div className="flex justify-between">
-                                <span
-                                  style={{
-                                    textDecoration: "line-through",
-                                    fontSize: 14,
-                                  }}
-                                >
-                                  ₹{Math.floor(item.price)}
-                                </span>{" "}
-                                <p className="text-green-600">
+                                <p className="text-green-600 text-xl font-semibold bg-green-200 py-1 px-3 rounded-full">
                                   ₹
                                   {Math.floor(item.price) -
                                     Math.floor(item.price) *
                                       (item.discount / 100)}
                                 </p>
+                                <span
+                                  style={{
+                                    textDecoration: "line-through",
+                                    fontSize: 14,
+                                  }}
+                                  className="absolute right-0"
+                                >
+                                  ₹{Math.floor(item.price)}
+                                </span>{" "}
                               </div>
                             </>
                           ) : (
-                            <p className="text-green-600">
+                            <span className="text-green-600 text-xl font-semibold bg-green-200 py-1 px-3 rounded-full">
                               {" "}
                               ₹{Math.floor(item.price)}
-                            </p>
+                            </span>
                           )}
                         </div>
                       </div>

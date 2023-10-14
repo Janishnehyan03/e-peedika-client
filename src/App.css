@@ -1,0 +1,24 @@
+/* Add this CSS to your global stylesheet or component style */
+/* You can customize the scrollbar according to your design requirements */
+
+/* For Webkit/Blink browsers */
+::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  /* For scrollbar track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* For scrollbar handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 30px;
+  }
+  
+  /* For scrollbar handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  

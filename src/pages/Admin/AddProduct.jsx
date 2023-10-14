@@ -7,13 +7,20 @@ import { CircularProgress } from "@material-ui/core";
 function AddProduct() {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
-  const [img, setImg] = useState("");
+  const [img, setImg] = useState(null);
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [allCategories, setAllCategories] = useState([]);
   const [stock, setStock] = useState("");
   const [loading, setLoading] = useState(false);
   const [discount, setDiscount] = useState("");
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    const selectedImage = e.target.files[0];
+    setPreviewImage(URL.createObjectURL(selectedImage)); // Create a preview URL for the selected image
+    setImg(selectedImage);
+  };
 
   const getAllCategories = async () => {
     try {
@@ -27,9 +34,7 @@ function AddProduct() {
     }
   };
 
-  const sendToCloudinary = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  const sendToCloudinary = async () => {
     try {
       const formData = new FormData();
       formData.append("file", img);
@@ -39,22 +44,23 @@ function AddProduct() {
         formData
       );
       const { secure_url } = res.data;
-      setImg(secure_url);
-      setLoading(false);
+      return secure_url;
     } catch (error) {
       console.log(error);
+      throw error;
     }
   };
+
   const addProduct = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    await sendToCloudinary(e);
-    if (typeof (img === "string")) {
-      try {
-        let res = await Axios.post("/products", {
+    try {
+      setLoading(true);
+      const secure_url = await sendToCloudinary();
+      if (typeof secure_url === "string") {
+        const res = await Axios.post("/products", {
           title,
           price,
-          img,
+          img: secure_url,
           description,
           category,
           stock,
@@ -65,6 +71,7 @@ function AddProduct() {
             position: "top-center",
             autoClose: 2000,
           });
+
           setTitle("");
           setPrice("");
           setImg("");
@@ -72,17 +79,25 @@ function AddProduct() {
           setCategory("");
           setStock("");
           setLoading(false);
+          window.location.href = "/dashboard";
         }
-      } catch (error) {
-        console.log(error.response);
-        toast.error(error.response.data.message, {
+      }
+    } catch (error) {
+      console.log(error.response);
+      if (img === null) {
+        toast.error("Please select an image file", {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 4000,
         });
-        setLoading(false);
       }
+      toast.error(error.response.data.message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 4000,
+      });
+      setLoading(false);
     }
   };
+
   useEffect(() => {
     getAllCategories();
   }, []);
@@ -99,12 +114,12 @@ function AddProduct() {
       <div className="mt-10 sm:mt-0">
         <div className="grid grid-cols-1 max-w-2xl mx-auto bg-gray-50 p-4">
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <h3 className="text-lg text-center font-medium leading-6 text-gray-900">
-              Add Product
-            </h3>
             <form action="#" method="POST">
               <div className="shadow overflow-hidden sm:rounded-md">
                 <div className="px-4 py-5 bg-white sm:p-6">
+                  <h3 className="text-3xl uppercase my-4 font-bold text-center  leading-6 text-blue-900">
+                    Add Product
+                  </h3>
                   <div className="grid grid-cols-6 gap-6">
                     <div className="col-span-6 sm:col-span-3">
                       <label
@@ -241,6 +256,11 @@ function AddProduct() {
                             strokeLinejoin="round"
                           />
                         </svg>
+                        <img
+                          src={previewImage}
+                          alt="Preview"
+                          className="mx-auto h-62 w-62"
+                        />
                         <div className="flex text-sm text-gray-600">
                           <label
                             htmlFor="file-upload"
@@ -252,7 +272,7 @@ function AddProduct() {
                               name="file-upload"
                               type="file"
                               className="sr-only"
-                              onChange={(e) => setImg(e.target.files[0])}
+                              onChange={(e) => handleImageChange(e)}
                             />
                           </label>
                           <p className="pl-1">or drag and drop</p>
@@ -264,6 +284,7 @@ function AddProduct() {
                     </div>
                   </div>
                 </div>
+
                 <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                   {loading ? (
                     <CircularProgress />
