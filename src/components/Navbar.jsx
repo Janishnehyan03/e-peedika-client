@@ -11,6 +11,7 @@ const Navbar = () => {
   const logout = async () => {
     try {
       let response = await Axios.post("/auth/logout");
+      localStorage.clear()
       window.location.href = "/";
     } catch (error) {
       console.log(error.response);
