@@ -68,17 +68,18 @@ function Index({ cartOpen, setCartOpen }) {
                   {category?.description}
                 </p>
                 {authData?.isAdmin && (
-                  <Link to={`/admin/edit-category/${category?._id}`}>
-                    <FontAwesomeIcon icon={faPen} /> Edit Category
-                  </Link>
-                )}
-                {authData?.isAdmin && (
-                  <button
-                    onClick={deleteCategory}
-                    className="text-red-600 font-bold ml-2"
-                  >
-                    <FontAwesomeIcon icon={faTrash} /> Delete Category
-                  </button>
+                  <div className="my-8 flex space-x-10">
+                    <Link to={`/admin/edit-category/${category?._id}`}>
+                      <FontAwesomeIcon icon={faPen} /> Edit Category
+                    </Link>
+
+                    <button
+                      onClick={deleteCategory}
+                      className="text-red-600 font-bold ml-2"
+                    >
+                      <FontAwesomeIcon icon={faTrash} /> Delete Category
+                    </button>
+                  </div>
                 )}
 
                 {products.length > 0 ? (
