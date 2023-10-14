@@ -56,7 +56,7 @@ function Index({ cartOpen, setCartOpen }) {
                 </Link>
                 <div className="flex items-center space-x-2">
                   <img
-                    src={category.image}
+                    src={category?.image}
                     className="h-28 w-28 rounded-full"
                     alt=""
                   />

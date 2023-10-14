@@ -36,6 +36,7 @@ import Search_data from "./pages/Search_data";
 import Shop from "./pages/Shop";
 import Signup from "./pages/Signup";
 import Verify from "./pages/Verify";
+import Socket from "./pages/Socket";
 
 function App() {
   const [cartOpen, setCartOpen] = useState(false);
@@ -58,6 +59,7 @@ function App() {
                     <Home cartOpen={cartOpen} setCartOpen={setCartOpen} />
                   </Route>
 
+                  <Route path="/socket" component={Socket} />
                   <Route path="/search" component={Search_data} />
                   <Route path="/category/:id">
                     <Shop cartOpen={cartOpen} setCartOpen={setCartOpen} />
